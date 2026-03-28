@@ -2,7 +2,12 @@
 name = "toon-cli"
 version = "0.1.0"
 edition = "2024"
-description = "Convert JSON to TOON format"
+description = "CLI tool to convert between JSON and TOON (Token-Oriented Object Notation) formats"
+license = "MIT"
+repository = "https://github.com/Kalowave/toon-cli"
+homepage = "https://github.com/Kalowave/toon-cli"
+keywords = ["toon", "json", "cli", "converter"]
+categories = ["command-line-utilities", "encoding"]
 
 [dependencies]
 serde_json = { version = "1", features = ["preserve_order"] }
