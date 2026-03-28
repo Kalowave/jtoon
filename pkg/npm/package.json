@@ -1,5 +1,5 @@
 {
-  "name": "jtoon",
+  "name": "@kalowave/jtoon",
   "version": "0.1.0",
   "description": "CLI tool to convert between JSON and TOON formats",
   "license": "MIT",
