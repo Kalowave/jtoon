@@ -6,7 +6,7 @@ mod encoder;
 use encoder::{Delimiter, Encoder};
 
 #[derive(Parser)]
-#[command(name = "toon", about = "Convert between JSON and TOON formats")]
+#[command(name = "jtoon", about = "Convert between JSON and TOON formats")]
 struct Cli {
     /// Input file (reads from stdin if not provided)
     input: Option<String>,
@@ -38,7 +38,7 @@ fn main() {
 
     if cli.decode {
         let value = decoder::decode(&input).unwrap_or_else(|e| {
-            eprintln!("toon: decode error: {}", e);
+            eprintln!("jtoon: decode error: {}", e);
             std::process::exit(1);
         });
         let json = if cli.compact {
@@ -50,7 +50,7 @@ fn main() {
         println!("{}", json);
     } else {
         let value: serde_json::Value = serde_json::from_str(&input).unwrap_or_else(|e| {
-            eprintln!("toon: invalid JSON: {}", e);
+            eprintln!("jtoon: invalid JSON: {}", e);
             std::process::exit(1);
         });
         let delimiter = match cli.delimiter.as_str() {
@@ -59,7 +59,7 @@ fn main() {
             "pipe" => Delimiter::Pipe,
             other => {
                 eprintln!(
-                    "toon: invalid delimiter '{}' (use: comma, tab, pipe)",
+                    "jtoon: invalid delimiter '{}' (use: comma, tab, pipe)",
                     other
                 );
                 std::process::exit(1);
@@ -71,7 +71,7 @@ fn main() {
         match &cli.output {
             Some(path) => {
                 std::fs::write(path, &toon).unwrap_or_else(|e| {
-                    eprintln!("toon: error writing '{}': {}", path, e);
+                    eprintln!("jtoon: error writing '{}': {}", path, e);
                     std::process::exit(1);
                 });
             }
@@ -87,13 +87,13 @@ fn main() {
 fn read_input(cli: &Cli) -> String {
     match &cli.input {
         Some(path) => std::fs::read_to_string(path).unwrap_or_else(|e| {
-            eprintln!("toon: error reading '{}': {}", path, e);
+            eprintln!("jtoon: error reading '{}': {}", path, e);
             std::process::exit(1);
         }),
         None => {
             let mut buf = String::new();
             io::stdin().read_to_string(&mut buf).unwrap_or_else(|e| {
-                eprintln!("toon: error reading stdin: {}", e);
+                eprintln!("jtoon: error reading stdin: {}", e);
                 std::process::exit(1);
             });
             buf
