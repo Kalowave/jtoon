@@ -1,0 +1,17 @@
+{
+  "name": "jtoon",
+  "version": "0.1.0",
+  "description": "CLI tool to convert between JSON and TOON formats",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kalowave/jtoon"
+  },
+  "bin": {
+    "jtoon": "run.js"
+  },
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "keywords": ["json", "toon", "cli", "converter"]
+}
