@@ -71,6 +71,29 @@ jobs:
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
+  publish-npm:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Update npm package version
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          cd pkg/npm
+          npm version "$VERSION" --no-git-tag-version
+
+      - name: Publish to npm
+        run: cd pkg/npm && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   release:
     needs: build
     runs-on: ubuntu-latest
